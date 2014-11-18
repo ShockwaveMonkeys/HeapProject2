@@ -48,9 +48,10 @@ public class PriorityQueue
     	
     	for(int i = 0; i < instructions.length ; i++)
     	{
-    		//mt.determineMethod(instructions[i], myHeap, );
-    		
+    		mt.determineMethod(instructions[i], myHeap, root );
     	}
+    	System.out.println("------heap print------");
+    	myHeap.printHeap(root);
     	
     	
     	

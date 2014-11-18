@@ -2,3 +2,4 @@ deleteMin
 
 decreaseKey(2,6)
 
+increaseKey(11,12)

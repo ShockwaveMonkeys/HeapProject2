@@ -95,22 +95,38 @@ public class ManageText
 		root = heap.getRoot();
 		if(methodName.contains("deleteMin"))
 		{
+			System.out.println("run deleteMin()");
 			heap.deleteMin(root);
 			
 		}
 		else if(methodName.contains("decreaseKey"))
 		{
 			int[] parameters = getParameters(methodName);
-			heap.decreaseKey(root, parameters[0] , parameters[1]);
+			//heap.decreaseKey(root, parameters[0] , parameters[1]);
+			System.out.println("will run decreaseKey");
+			for(int i = 0; i < parameters.length; i++)
+			{
+				System.out.println(parameters[i]);
+			}
 		}
 		else if(methodName.contains("increaseKey"))
 		{	
 			int[] parameters = getParameters(methodName);
-			heap.increaseKey(root, parameters[0], parameters[1]);
+			//heap.increaseKey(root, parameters[0], parameters[1]);
+			System.out.println("will run increaseKey");
+			for(int i = 0; i < parameters.length; i++)
+			{
+				System.out.println(parameters[i]);
+			}
 		}
 		else if(methodName.contains("delete"))
 		{//somehow get postion p.
-			heap.delete(root, getDeleteParameter(methodName));
+			System.out.println("will run delete");
+			//heap.delete(root, getDeleteParameter(methodName));
+		}
+		else
+		{
+			System.out.println("No of methods is run");
 		}
 	}
 	
