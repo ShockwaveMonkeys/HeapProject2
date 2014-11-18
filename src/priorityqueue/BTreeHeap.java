@@ -18,10 +18,15 @@ import java.util.Set;
 /**
  *
  * @author Luis Barreto
+ * @author Younggun Chung
  */
 public class BTreeHeap 
 {
     private Node root;
+    private int counter = 1;
+    private Node swapNode;
+    private int tempInt;
+    
     public Node getRoot()
     {
         return this.root;
@@ -34,7 +39,7 @@ public class BTreeHeap
     {
        // ArrayList<Integer> output = new ArrayList<Integer>();
         Queue<Node> queue =  new LinkedList<Node>();
-        int counter = 1;
+        counter = 1;
         queue.add(n);
         int node = 1; //because at root
         int child = 0; //initialize it with 0 
@@ -69,7 +74,7 @@ public class BTreeHeap
       //  }
       //  System.out.println();
       //  output = null;
-}
+    }
     public void printHeap(Node n)
     {
         ArrayList<String> output = new ArrayList<String>();
@@ -167,6 +172,155 @@ public class BTreeHeap
                 return;
             }
         }
+    }
+    
+    // @author Younggun Chung
+    // buildArray, deleteMin, decreaseKey, increaseKey, delete
+    
+    public void buildArray(Node nd){
+    	ArrayList<Integer> output = new ArrayList<Integer>();
+    	ArrayList<Integer> index = new ArrayList<Integer>();
+    	
+        Queue<Node> queue =  new LinkedList<Node>();
+        
+        queue.add(nd);
+        int node = 1; //because at root
+        int child = 0; //initialize it with 0 
+        while(queue.size() != 0)
+        {
+            Node n1 = queue.remove();
+            node--;
+            output.add(n1.value);
+            index.add(n1.index);
+            if(n1.left !=null)
+            {
+                queue.add(n1.left);
+                child ++;
+            }
+            if(n1.right != null)
+            {
+                queue.add(n1.right);
+                child ++;
+            }
+            if( node == 0)
+            {
+                node = child ;
+                child = 0;
+            }
+        }
+        //System.out.print(output);
+        for(int i =0; i < output.size(); i++)
+        {
+            if(output.get(i) > 511){
+            	break;
+            }
+        	
+        	if(output.get(i) == -1){
+            	i++;
+            }
+            else{
+            		System.out.print(output.get(i)+" ");
+            }
+            
+        }
+        System.out.println();
+        output = null;
+    }
+    
+    public void deleteMin(Node nd){
+    	if(nd != null){
+    		nd.setValue(512);    		
+    		
+    		heapify(nd);
+    		indexHeap(nd);
+    	}
+    }
+    
+    public void decreaseKey(Node nd, int p, int delta){
+    	if(nd != null){
+    		
+    		if(nd.index == delta){
+    			nd.setIndex(nd.getIndex()+128);
+    			
+    			if(nd.left != null){
+    				setDecIndex(nd, delta);
+    				}
+    			if(nd.right != null){
+    				setDecIndex(nd, delta);
+    			}
+    		}
+    			
+    			
+    		else{
+    			if(nd.left != null){
+    				decreaseKey(nd.left, p, delta);
+    			}
+    			if(nd.right != null){
+    				decreaseKey(nd.right, p, delta);
+    			}
+    		}
+    		
+    	}
+    }
+   
+	public void setDecIndex(Node nd, int delta){
+		if(nd != null){
+			if(nd.left != null){
+				nd.setIndex(nd.getIndex()+128);
+				setDecIndex(nd.left, delta);
+			}
+			if(nd.right != null){
+				nd.setIndex(nd.getIndex()+128);
+				setDecIndex(nd.right, delta);
+			}
+		}
+	}
+	
+	public void decreaseDone(Node nd, int p, int delta){
+    	if(nd != null){
+    		
+    		if(nd.index == p){
+    			nd.setIndex(p-delta);
+    		}	
+    		else{
+    			if(nd.left != null){
+    				decreaseDone(nd.left, p, delta);
+    			}
+    			if(nd.right != null){
+    				decreaseDone(nd.right, p, delta);
+    			}
+    		}
+    		
+    	}
+    }
+	
+    
+    
+    public void increaseKey(Node nd, int p, int delta){
+    	if(nd != null){
+    		
+    		
+    	}
+    }
+    
+    public void delete(Node nd, int p){
+    	if(nd != null){
+    		
+    		if(nd.getIndex() == p){
+    			nd.setValue(512);
+    			
+        		heapify(nd);
+        		indexHeap(nd);
+    		}
+    		else{
+    			if(nd.left != null){
+    				delete(nd.left, p);
+    			}
+    			if(nd.right != null){
+    				delete(nd.right, p);
+    			}
+    		}
+    	}
     }
     
 }
