@@ -18,7 +18,6 @@ import java.util.Set;
 /**
  *
  * @author Luis Barreto
- * @author Younggun Chung
  */
 public class BTreeHeap 
 {
@@ -238,24 +237,21 @@ public class BTreeHeap
     
     public void decreaseKey(Node nd, int p, int delta){
     	if(nd != null){
+    		if((delta-p) < 1){
+    			delta = 1;
+    		}
     		
     		if(nd.index == delta){
-    			nd.setIndex(nd.getIndex()+128);
+    			nd.setIndex(nd.getIndex()+30);
     			
-    			if(nd.left != null){
-    				setDecIndex(nd, delta);
-    				}
-    			if(nd.right != null){
-    				setDecIndex(nd, delta);
+    			if((nd.left != null) || (nd.right != null)){
+    				setDecIndex(nd.left, delta);
+    				setDecIndex(nd.right, delta);
     			}
     		}
-    			
-    			
     		else{
-    			if(nd.left != null){
+    			if((nd.left != null) || (nd.right != null)){
     				decreaseKey(nd.left, p, delta);
-    			}
-    			if(nd.right != null){
     				decreaseKey(nd.right, p, delta);
     			}
     		}
@@ -265,12 +261,9 @@ public class BTreeHeap
    
 	public void setDecIndex(Node nd, int delta){
 		if(nd != null){
-			if(nd.left != null){
-				nd.setIndex(nd.getIndex()+128);
+			if((nd.left != null) || (nd.right != null)){
+				nd.setIndex(nd.getIndex()+30);
 				setDecIndex(nd.left, delta);
-			}
-			if(nd.right != null){
-				nd.setIndex(nd.getIndex()+128);
 				setDecIndex(nd.right, delta);
 			}
 		}
@@ -278,15 +271,16 @@ public class BTreeHeap
 	
 	public void decreaseDone(Node nd, int p, int delta){
     	if(nd != null){
+    		if((delta-p) < 1){
+    			delta = 1;
+    		}
     		
     		if(nd.index == p){
     			nd.setIndex(p-delta);
     		}	
     		else{
-    			if(nd.left != null){
+    			if((nd.left != null) || (nd.right != null)){
     				decreaseDone(nd.left, p, delta);
-    			}
-    			if(nd.right != null){
     				decreaseDone(nd.right, p, delta);
     			}
     		}
@@ -313,10 +307,8 @@ public class BTreeHeap
         		indexHeap(nd);
     		}
     		else{
-    			if(nd.left != null){
+    			if((nd.left != null) || (nd.right != null)) {
     				delete(nd.left, p);
-    			}
-    			if(nd.right != null){
     				delete(nd.right, p);
     			}
     		}
