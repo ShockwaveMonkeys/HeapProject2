@@ -9,6 +9,7 @@ package priorityqueue;
 /**
  *
  * @author Luis Barreto
+ * @author Younggun Chung
  */
 public class Node 
 {
@@ -55,5 +56,25 @@ public class Node
     }
 
 
+    // Young
+    public Node getNode(){
+    	return this;
+    }
+    
+    public int getValue(){
+    	return this.value;
+    }
+    
+    public int getIndex(){
+    	return this.index;
+    }
+    
+    public void setValue(int n){
+    	this.value = n;
+    }
+    
+    public void setIndex(int n){
+    	this.index = n;
+    }
     
 }
