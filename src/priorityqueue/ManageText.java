@@ -31,7 +31,9 @@ public class ManageText
 		{
 			e.getStackTrace();
 		}
-		splitedInstruction = info2.split("\n");
+		splitedInstruction = info2.split(" ");
+		
+		
 		return splitedInstruction;
 		
 	}
@@ -66,7 +68,7 @@ public class ManageText
 	{//this method is to get parameters for decreaseKey and increaseKey
 		int [] parameters = new int[2];
 		
-		int indexOfStartingParenthesis = methodName.indexOf("(");
+		int indexOfStartingParenthesis = methodName.indexOf("(") + 1;
 		int indexOfEndingParenthesis = methodName.length() -1;
 		String tuples = methodName.substring(indexOfStartingParenthesis, indexOfEndingParenthesis);
 		String[] arguments = tuples.split(",");

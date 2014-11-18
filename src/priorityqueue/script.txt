@@ -1,4 +1,4 @@
 deleteMin
 
-decreaseKey(2, 6)
+decreaseKey(2,6)
 
